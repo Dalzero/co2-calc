@@ -6,18 +6,18 @@
   <title>CO₂ 배출량 계산기 (v0.2)</title>
   <style>
     :root {
-      --bg: #f9fafb;            /* page background */
-      --panel: #ffffff;         /* cards/panels */
-      --border: #e5e7eb;        /* soft borders */
-      --muted: #6b7280;         /* muted text */
-      --text: #111827;          /* body text */
-      --brand: #6b5bd4;         /* soft violet accent */
-      --section-bg: #f4f1fb;    /* pale lavender band */
-      --thead-bg: #f3f4f6;      /* table head */
-      --output-bg: #f4f2fb;     /* CO₂ box bg (light purple) */
-      --focus: #e3d7ff;         /* focus ring */
-      --summary-bg: #f7f4ff;    /* summary light purple */
-      --summary-border: #e5defa;/* summary border */
+      --bg: #f9fafb;            
+      --panel: #ffffff;         
+      --border: #e5e7eb;        
+      --muted: #6b7280;         
+      --text: #111827;          
+      --brand: #6b5bd4;         
+      --section-bg: #f4f1fb;    
+      --thead-bg: #f3f4f6;      
+      --output-bg: #f4f2fb;     
+      --focus: #e3d7ff;         
+      --summary-bg: #f7f4ff;    
+      --summary-border: #e5defa;
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -30,7 +30,7 @@
     h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: .2px; }
     .sub { color: var(--muted); font-size: 13px; }
 
-    /* Tabs */
+    
     .tabs { display: flex; gap: 6px; margin: 12px 0 16px; border-bottom: 1px solid var(--border); }
     .tab { appearance: none; background: transparent; border: none; padding: 10px 14px; border-radius: 10px 10px 0 0; font-weight: 700; color: #6b7280; cursor: pointer; }
     .tab[aria-selected="true"] { color: #2e1065; background: #f6f3ff; border: 1px solid var(--summary-border); border-bottom-color: transparent; }
@@ -72,11 +72,11 @@
     .summary .trees { margin-top: 6px; font-size: 18px; font-weight: 700; color: #4c2882; }
     .summary .note { margin-top: 6px; color: var(--muted); font-size: 12px; }
 
-    /* Hide in-cell labels and placeholders */
+    
     tbody td > label.muted{ display:none; }
     input::placeholder { color: transparent; }
 
-    /* Lightweight test report box */
+    
     #test-report { display:none; margin: 12px 20px; padding: 12px; border-radius: 10px; }
     #test-report.fail { display:block; background:#fef2f2; border:1px solid #fecaca; color:#7f1d1d; }
     #test-report.ok { display:block; background:#ecfdf5; border:1px solid #a7f3d0; color:#064e3b; }
@@ -109,7 +109,7 @@
       <div class="toolbar">
         <div class="left">
           <span class="tag">v0.2</span>
-          <button class="btn" id="showFactors">계수 보기</button>
+          
           <button class="btn secondary" id="resetBtn">입력 초기화</button>
         </div>
         <div class="right muted">모든 CO₂ 값은 <strong>kg</strong> 단위로 표기됩니다. (항목의 단위를 기준으로 계산)</div>
@@ -269,24 +269,13 @@
 
       
 
-      <details style="margin-top:14px;">
-      <summary style="cursor:pointer; color: var(--accent);">계수 편집 (고급)</summary>
-      <div class="card" style="margin-top:10px;">
-        <div class="toolbar"><div class="left"><span class="tag">배출계수</span></div><div class="right muted">단위당 kg CO₂</div></div>
-        <table>
-          <thead>
-            <tr><th>항목</th><th>계수 (kg/단위)</th><th>단위</th><th>적용</th></tr>
-          </thead>
-          <tbody id="factorEditor"></tbody>
-        </table>
-      </div>
-    </details>
+      
       </section>
 
       <section id="tab-info" class="card" role="tabpanel" aria-labelledby="tabbtn-info" hidden style="margin: 0 20px 20px; padding: 18px;">
         <h2 style="margin:0 0 10px;color:#3f2a7c; font-size:18px;">탄소의 발생 이유와 줄이는 방법</h2>
         
-        <!-- 1. 교통수단 -->
+        
         <h3 style="margin:14px 0 6px; font-size:17px;">1. 교통수단</h3>
         <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 연료 연소와 에너지 소비. 대부분의 교통수단은 <b>화석 연료(휘발유, 경유 등)</b>를 연소해 동력을 얻기 때문에 직접적으로 온실가스(주로 CO₂)를 배출</p>
         <ul style="margin:0 0 12px 18px; color:#374151;">
@@ -323,7 +312,7 @@
           </tbody>
         </table>
 
-        <!-- 2. 식품(식습관) -->
+        
         <h3 style="margin:14px 0 6px; font-size:17px;">2. 식품(식습관)</h3>
         <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 생산·가공·운송 전 과정에서 배출. 농업 생산(특히 반추동물 사육의 <b>메탄 CH₄</b>)과 제조/포장, 냉장 유통, 조리 및 폐기 등에서 배출이 발생</p>
         <ul style="margin:0 0 12px 18px; color:#374151;">
@@ -365,7 +354,7 @@
           </tbody>
         </table>
 
-        <!-- 3. 일회용품 사용 -->
+        
         <h3 style="margin:14px 0 6px; font-size:17px;">3. 일회용품 사용</h3>
         <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 생산·사용·폐기 전 과정. 플라스틱은 주로 화석연료 기반 원료로 제조되며, 생산부터 폐기까지 많은 에너지를 사용</p>
         <ul style="margin:0 0 12px 18px; color:#374151;">
@@ -401,7 +390,7 @@
           </tbody>
         </table>
 
-        <!-- 4. 줄이는 방법(핵심 전략) - 손글씨 메모 반영 -->
+        
         <h3 style="margin:18px 0 6px; font-size:17px;">4. 줄이는 방법(핵심 전략)</h3>
         <ol style="margin:0 0 4px 18px; color:#374151;">
           <li><b>건물·산업 에너지 효율화</b> — 건물 단열 강화, 고효율 설비, 스마트 그리드/스마트 팩토리 도입</li>
@@ -409,22 +398,22 @@
           <li><b>탄소 상쇄 활동</b> — 나무심기·산림보호, 캠페인 참여, 친환경 기업/ESG 투자</li>
           <li><b>친환경 교통·소비 습관</b> — 대중교통/자전거·도보 이용, 육류 소비 줄이기, 다회용기 사용/재사용·재활용, 에너지 절약</li>
         </ol>
-      </section>
+      <div style="margin-top:16px"><a href="https://forms.gle/zAtKxio67VyARqas5" target="_blank" rel="noopener noreferrer" class="btn">탄소 가이드 피드백(설문) 열기</a></div></section>
 
   </div>
 
   <script>
-    // ===== Utils =====
+
     const fmt = (n) => (Number.isFinite(n) ? n.toLocaleString(undefined,{maximumFractionDigits:2, minimumFractionDigits:2}) : '0.00');
     const num = (x) => parseFloat(String(x).replace(/[^\d.-]/g, ''));
 
-    // ===== Row calc =====
+
     function recalcRow(tr){
       const input = tr.querySelector('input');
       const factor = parseFloat(tr.dataset.factor || '0');
       const value = parseFloat(input?.value);
       const co2 = (isNaN(value) ? 0 : value) * (isNaN(factor) ? 0 : factor);
-      // Support both <span class="co2val"> and <td class="result">
+
       const outSpan = tr.querySelector('.co2val');
       const outCell = tr.querySelector('.result');
       if (outSpan) outSpan.textContent = fmt(co2);
@@ -459,10 +448,10 @@
         document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
           const id = tr.dataset.id; if(data[id] !== undefined){ const inp = tr.querySelector('input'); if(inp) inp.value = data[id]; }
         });
-      }catch(e){ /* ignore */ }
+      }catch(e){  }
     }
 
-    // ===== Summary helpers (trees offset) =====
+
     function getTreeAbsorption(){
       const v = parseFloat(localStorage.getItem('co2-tree-absorption'));
       return (Number.isFinite(v) && v > 0) ? v : 6.6; // kg-CO2 per tree per year (default)
@@ -505,7 +494,7 @@
         });
         tbody.appendChild(row);
       });
-      // Extra editable factor: tree absorption per year
+
       const treeRow = document.createElement('tr');
       treeRow.innerHTML = `
         <td>소나무(30년생) 1그루 연간 흡수량</td>
@@ -533,7 +522,7 @@
       hel.innerHTML = `참고: 현재 배출계수 — ${list}. 실제 보고/심사용이라면 관할 지자체·기관의 공인 배출계수로 교체하세요.`;
     }
 
-    // ===== Tabs (Option 2) =====
+
     function wireTabs(){
       const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
       const panels = {
@@ -565,18 +554,18 @@
       activate('tabbtn-calc');
     }
 
-    // ===== Minimal self tests =====
+
     function runSelfTests(){
       const report = document.getElementById('test-report');
       const fail = (msg) => { if(report){ report.className='fail'; report.textContent = '테스트 실패: ' + msg; } console.error(msg); };
       const ok = (msg) => { if(report){ report.className='ok'; report.textContent = '테스트 통과: ' + msg; } console.log(msg); };
 
       try {
-        // backup current state
+
         const backup = JSON.stringify(collectValues());
         const lsBackup = localStorage.getItem('co2-form-values');
 
-        // ---- Test 1: 교통(휘발유) 100 km/주 → 3.27 kg ----
+
         const inp1 = document.getElementById('inp-승용차(휘발유)');
         if(!inp1) return ok('입력표가 없는 환경(미리보기) — 테스트 스킵');
         inp1.value = '100';
@@ -585,19 +574,19 @@
         const row1 = num(row1Text);
         if(Math.abs(row1 - 3.27) > 0.05) return fail('휘발유 100km/주 기대≈3.27kg, 실제='+row1Text);
 
-        // ---- Test 2: 음식(밥·면 평균) 3회/주 → 2.12 kg ----
+
         const inp2 = document.getElementById('inp-밥면평균');
         if (inp2) {
           inp2.value = '3';
-          // 동적 테이블(아래 섹션)에도 동일 로직이 적용되는지 확인
-          // 해당 섹션은 tbody tr[data-id]이므로 합산에 포함되어야 한다.
+
+
           recalcAll();
           const t = num(document.getElementById('sumCO2')?.textContent || '0');
-          // 기대 총합 ≈ 3.27 + (3×0.706=2.118) = 5.388 → 5.39 ± 0.05 허용
+
           if(Math.abs(t - 5.39) > 0.08) return fail('총합 기대≈5.39kg, 실제='+t);
         }
 
-        // restore
+
         try {
           const data = JSON.parse(backup);
           document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
@@ -612,9 +601,9 @@
       }
     }
 
-    // Wire up
+
     window.addEventListener('DOMContentLoaded', () => {
-      // Apply researched pine absorption default (30-year-old pine): 6.6 kg CO₂/year
+
       try { localStorage.setItem('co2-tree-absorption', '6.6'); } catch(e) {}
 
       loadValues();
@@ -637,11 +626,7 @@
       renderHelp();
       recalcAll();
       wireTabs();
-    });
+      });
   </script>
-
-  <!-- 음식(횟수×계수) — 독립 섹션: 같은 계산 로직에 포함됨 -->
-  
-
 </body>
 </html>
