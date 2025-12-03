@@ -30,7 +30,7 @@
     h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: .2px; }
     .sub { color: var(--muted); font-size: 13px; }
 
-    
+    /* Tabs */
     .tabs { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 12px 0 16px; border-bottom: 1px solid var(--border); }
     .tab { appearance: none; background: transparent; border: none; padding: 10px 14px; border-radius: 10px 10px 0 0; font-weight: 700; color: #6b7280; cursor: pointer; }
     .tab[aria-selected="true"] { color: #2e1065; background: #f6f3ff; border: 1px solid var(--summary-border); border-bottom-color: transparent; }
@@ -67,16 +67,16 @@
     .muted { color: var(--muted); font-size: 12px; }
     .right { text-align: right; }
 
-    .summary { margin: 20px; border: 1px solid var(--summary-border); background: var(--summary-bg); border-radius: 14px; padding: 22px; }
+    .summary { margin: 20px 20px; border: 1px solid var(--summary-border); background: var(--summary-bg); border-radius: 14px; padding: 22px; }
     .summary .total-line { font-size: 20px; font-weight: 800; color: #3f2a7c; }
     .summary .trees { margin-top: 6px; font-size: 18px; font-weight: 700; color: #4c2882; }
     .summary .note { margin-top: 6px; color: var(--muted); font-size: 12px; }
 
-    
+    /* Hide in-cell labels and placeholders */
     tbody td > label.muted{ display:none; }
     input::placeholder { color: transparent; }
 
-    
+    /* Lightweight test report box */
     #test-report { display:none; margin: 12px 20px; padding: 12px; border-radius: 10px; }
     #test-report.fail { display:block; background:#fef2f2; border:1px solid #fecaca; color:#7f1d1d; }
     #test-report.ok { display:block; background:#ecfdf5; border:1px solid #a7f3d0; color:#064e3b; }
@@ -89,36 +89,30 @@
       .summary { margin: 16px 12px; padding: 18px; }
       #test-report { margin: 10px 12px; }
     }
-  /* Info section spacing */
-    #tab-info h3 { margin: 112px 0 16px !important; }
-    #tab-info p { margin-bottom: 12px !important; }
-    #tab-info ul { margin-bottom: 18px !important; }
-    #tab-info table { margin: 10px 0 24px !important; }
+
+    /* --- Tabs/panels hard rules --- */
+    [role="tabpanel"][hidden] { display: none !important; }
     #survey-link-top { margin-left: 8px; }
-  /* Info section – roomy spacing to match mockup */
-    #tab-info { --sp-1: 16px; --sp-2: 24px; --sp-3: 112px; }
+
+    /* --- Carbon Guide spacing & hero image --- */
+    #tab-info.card { margin: 0 0 20px; padding: 18px; }
     #tab-info * { line-height: 1.7; }
-    #tab-info h2 { margin: var(--sp-2) 0 var(--sp-1) !important; }
-    #tab-info h3 { margin: var(--sp-3) 0 16px !important; }
-    #tab-info p  { margin-bottom: var(--sp-1) !important; }
-    #tab-info ul, #tab-info ol { margin: 0 0 var(--sp-2) 18px !important; }
-    #tab-info table { margin: 12px 0 28px !important; }
-  /* Tighten spacing only between Info title and first section */
-    #tab-info h2 { margin-bottom: 8px !important; }
-    #tab-info h2 + h3 { margin-top: 8px !important; }
-  /* Hero image for Carbon Guide */
-    #tab-info .hero-wrap{position:relative;margin:8px auto 12px;max-width:800px;border-bottom:1px solid var(--border);border-radius:12px;overflow:hidden;}   
-    #tab-info .hero-img{display:block;width:100%;height:clamp(120px,16vw,180px);object-fit:cover;filter:contrast(1.02);}   
-    #tab-info .hero-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:48px;background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);}   
-  [hidden]{display:none!important;}
-  #tab-info { max-width: 800px; margin: 0 auto 20px !important; }
+    #tab-info h2 { margin: 0 0 10px !important; color:#3f2a7c; font-size:18px; }
+    #tab-info h3 { margin: 56px 0 16px !important; font-size:17px; }
+    #tab-info p  { margin-bottom: 12px !important; }
+    #tab-info ul, #tab-info ol { margin: 0 0 24px 18px !important; }
+    #tab-info table { margin: 12px 0 28px !important; width: 100%; border-collapse: collapse; }
+
+    #tab-info .hero-wrap { position: relative; margin: 8px 0 12px; max-width: 100%; border-bottom: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    #tab-info .hero-img  { display: block; width: 100%; height: clamp(120px, 16vw, 180px); object-fit: cover; filter: contrast(1.02); }
+    #tab-info .hero-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
       <h1>CO₂ 배출량 계산기</h1>
-      <div class="sub">값 입력 시 자동으로 <b>CO₂ 배출량(kg)</b>을 계산합니다. </div>
+      <div class="sub">값 입력 시 자동으로 <b>CO₂ 배출량(kg)</b>을 계산합니다.</div>
     </header>
 
     <nav class="tabs" role="tablist" aria-label="콘텐츠 전환">
@@ -127,319 +121,279 @@
       <a href="https://forms.gle/zAtKxio67VyARqas5" target="_blank" rel="noopener noreferrer" class="btn" id="survey-link-top">설문</a>
     </nav>
 
+    <!-- 계산기 패널 -->
     <section id="tab-calc" role="tabpanel" aria-labelledby="tabbtn-calc">
       <div class="card" role="region" aria-label="CO₂ 계산 표">
-      <div class="toolbar">
-        <div class="left">
-          <span class="tag">v0.2</span>
-          
-          <button class="btn secondary" id="resetBtn">입력 초기화</button>
+        <div class="toolbar">
+          <div class="left">
+            <span class="tag">v0.2</span>
+            <button class="btn secondary" id="resetBtn">입력 초기화</button>
+          </div>
+          <div class="right muted">모든 CO₂ 값은 <strong>kg</strong> 단위로 표기됩니다. (항목의 단위를 기준으로 계산)</div>
         </div>
-        <div class="right muted">모든 CO₂ 값은 <strong>kg</strong> 단위로 표기됩니다. (항목의 단위를 기준으로 계산)</div>
-      </div>
 
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">항목</th>
+              <th scope="col">입력값</th>
+              <th scope="col">단위</th>
+              <th scope="col">CO₂ 배출량 (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="section"><th colspan="4">교통</th></tr>
+            <tr data-id="승용차(휘발유)" data-factor="0.032675" data-unit="km/주">
+              <th scope="row">승용차(휘발유)</th>
+              <td><input id="inp-승용차(휘발유)" type="number" inputmode="decimal" min="0" step="any" aria-label="승용차(휘발유) (km/주)" /></td>
+              <td class="unit">km/주</td>
+              <td class="output"><span class="co2val" id="co2-승용차(휘발유)">0.00</span></td>
+            </tr>
+            <tr data-id="승용차(전기)" data-factor="0.01175" data-unit="km/주">
+              <th scope="row">승용차(전기)</th>
+              <td><input id="inp-승용차(전기)" type="number" inputmode="decimal" min="0" step="any" aria-label="승용차(전기) (km/주)" /></td>
+              <td class="unit">km/주</td>
+              <td class="output"><span class="co2val" id="co2-승용차(전기)">0.00</span></td>
+            </tr>
+            <tr data-id="버스" data-factor="0.024125" data-unit="km/주">
+              <th scope="row">버스</th>
+              <td><input id="inp-버스" type="number" inputmode="decimal" min="0" step="any" aria-label="버스 (km/주)" /></td>
+              <td class="unit">km/주</td>
+              <td class="output"><span class="co2val" id="co2-버스">0.00</span></td>
+            </tr>
+            <tr data-id="지하철" data-factor="0.005525" data-unit="km/주">
+              <th scope="row">지하철</th>
+              <td><input id="inp-지하철" type="number" inputmode="decimal" min="0" step="any" aria-label="지하철 (km/주)" /></td>
+              <td class="unit">km/주</td>
+              <td class="output"><span class="co2val" id="co2-지하철">0.00</span></td>
+            </tr>
+
+            <tr class="section"><th colspan="4">식품</th></tr>
+            <tr data-id="밥,죽,면" data-factor="0.842" data-unit="회/주">
+              <th scope="row">밥,죽,면</th>
+              <td><input id="inp-밥,죽,면" type="number" inputmode="decimal" min="0" step="any" aria-label="밥,죽,면 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-밥,죽,면">0.00</span></td>
+            </tr>
+            <tr data-id="국,탕,찌개" data-factor="2.075" data-unit="회/주">
+              <th scope="row">국,탕,찌개</th>
+              <td><input id="inp-국,탕,찌개" type="number" inputmode="decimal" min="0" step="any" aria-label="국,탕,찌개 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-국,탕,찌개">0.00</span></td>
+            </tr>
+            <tr data-id="피자" data-factor="2" data-unit="회/주">
+              <th scope="row">피자</th>
+              <td><input id="inp-피자" type="number" inputmode="decimal" min="0" step="any" aria-label="피자 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-피자">0.00</span></td>
+            </tr>
+            <tr data-id="햄버거 세트" data-factor="3.7" data-unit="회/주">
+              <th scope="row">햄버거 세트</th>
+              <td><input id="inp-햄버거 세트" type="number" inputmode="decimal" min="0" step="any" aria-label="햄버거 세트 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-햄버거 세트">0.00</span></td>
+            </tr>
+            <tr data-id="치킨" data-factor="2.1" data-unit="회/주">
+              <th scope="row">치킨</th>
+              <td><input id="inp-치킨" type="number" inputmode="decimal" min="0" step="any" aria-label="치킨 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-치킨">0.00</span></td>
+            </tr>
+            <tr data-id="빵" data-factor="0.254" data-unit="회/주">
+              <th scope="row">빵</th>
+              <td><input id="inp-빵" type="number" inputmode="decimal" min="0" step="any" aria-label="빵 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-빵">0.00</span></td>
+            </tr>
+            <tr data-id="고기류(200g)" data-factor="2.285" data-unit="회/주">
+              <th scope="row">고기류(200g)</th>
+              <td><input id="inp-고기류(200g)" type="number" inputmode="decimal" min="0" step="any" aria-label="고기류(200g) (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-고기류(200g)">0.00</span></td>
+            </tr>
+            <tr data-id="음료" data-factor="0.257" data-unit="회/주">
+              <th scope="row">음료</th>
+              <td><input id="inp-음료" type="number" inputmode="decimal" min="0" step="any" aria-label="음료 (회/주)" /></td>
+              <td class="unit">회/주</td>
+              <td class="output"><span class="co2val" id="co2-음료">0.00</span></td>
+            </tr>
+
+            <tr class="section"><th colspan="4">일회용품</th></tr>
+            <tr data-id="종이컵" data-factor="0.11" data-unit="개/주">
+              <th scope="row">종이컵</th>
+              <td><input id="inp-종이컵" type="number" inputmode="decimal" min="0" step="any" aria-label="종이컵 (개/주)" /></td>
+              <td class="unit">개/주</td>
+              <td class="output"><span class="co2val" id="co2-종이컵">0.00</span></td>
+            </tr>
+            <tr data-id="빨대" data-factor="0.0006" data-unit="개/주">
+              <th scope="row">빨대</th>
+              <td><input id="inp-빨대" type="number" inputmode="decimal" min="0" step="any" aria-label="빨대 (사용량/주)" /></td>
+              <td class="unit">개/주</td>
+              <td class="output"><span class="co2val" id="co2-빨대">0.00</span></td>
+            </tr>
+            <tr data-id="알루미늄 캔 (355ml)" data-factor="0.0968" data-unit="개/주">
+              <th scope="row">알루미늄 캔 (355ml)</th>
+              <td><input id="inp-알루미늄캔(355ml)" type="number" inputmode="decimal" min="0" step="any" aria-label="알루미늄 캔 (355ml) (개/주)" /></td>
+              <td class="unit">개/주</td>
+              <td class="output"><span class="co2val" id="co2-알루미늄캔(355ml)">0.00</span></td>
+            </tr>
+            <tr data-id="플라스틱(500ml)" data-factor="0.083" data-unit="개/주">
+              <th scope="row">플라스틱(500ml)</th>
+              <td><input id="inp-플라스틱(500ml)" type="number" inputmode="decimal" min="0" step="any" aria-label="플라스틱(500ml) (사용량/주)" /></td>
+              <td class="unit">개/주</td>
+              <td class="output"><span class="co2val" id="co2-플라스틱(500ml)">0.00</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="summary" id="summaryBox">
+          <div class="total-line">총 배출량 : <span id="sumCO2">0.00</span> kg-CO₂</div>
+          <div class="trees">이 CO₂를 상쇄하려면 연간 소나무 <span id="tree-count">0</span> 그루가 필요합니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 탄소 가이드 패널 -->
+    <section id="tab-info" class="card" role="tabpanel" aria-labelledby="tabbtn-info" hidden>
+      <div class="hero-wrap">
+        <img class="hero-img" src="./assets/img/car-me.jpg" alt="정체된 도로에서 발생하는 배출가스" loading="lazy" decoding="async" />
+      </div>
+      <h2>탄소의 발생 이유와 줄이는 방법</h2>
+
+      <h3>1. 교통수단</h3>
+      <p><b>원인:</b> 연료 연소와 에너지 소비. 대부분의 교통수단은 <b>화석 연료(휘발유, 경유 등)</b>를 연소해 동력을 얻기 때문에 직접적으로 온실가스(주로 CO₂)를 배출</p>
+      <ul>
+        <li><b>자동차·오토바이·버스:</b> 도로 화석연료(휘발유, 경유) 연소 → CO₂ 배출</li>
+        <li><b>항공기:</b> 이착륙/순항 전 과정에서 고농도 배출, 고고도 비응축성 영향 포함</li>
+        <li><b>선박:</b> 중유 사용, 항만 대기오염 및 온실가스 배출</li>
+        <li><b>전기차:</b> 주행 중 직접배출은 없음. 다만 전력 생산 단계의 간접배출 존재</li>
+        <li><b>요약:</b> 연료를 태우는 과정에서 직접적으로 CO₂가 배출(직접배출), 전기 사용 시엔 전력 생산 과정의 <b>간접배출</b>이 주요 원인</li>
+      </ul>
       <table>
         <thead>
           <tr>
-            <th scope="col">항목</th>
-            <th scope="col">입력값</th>
-            <th scope="col">단위</th>
-            <th scope="col">CO₂ 배출량 (kg)</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
           </tr>
         </thead>
         <tbody>
-<tr class="section"><th colspan="4">교통</th></tr>
-<tr data-id="승용차(휘발유)" data-factor="0.032675" data-unit="km/주">
-            <th scope="row">승용차(휘발유)</th>
-            <td>
-              <input id="inp-승용차(휘발유)" type="number" inputmode="decimal" min="0" step="any" aria-label="승용차(휘발유) (km/주)" />
-            </td>
-            <td class="unit">km/주</td>
-            <td class="output"><span class="co2val" id="co2-승용차(휘발유)">0.00</span></td>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">자가용 이용(특히 내연기관)</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">화석 연료 연소</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">차량 연소 시 CO₂ 직접 배출. 차량 제조·정비 과정의 간접배출도 고려.</td>
           </tr>
-<tr data-id="승용차(전기)" data-factor="0.01175" data-unit="km/주">
-            <th scope="row">승용차(전기)</th>
-            <td>
-              <input id="inp-승용차(전기)" type="number" inputmode="decimal" min="0" step="any" aria-label="승용차(전기) (km/주)" />
-            </td>
-            <td class="unit">km/주</td>
-            <td class="output"><span class="co2val" id="co2-승용차(전기)">0.00</span></td>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">비효율적 이동</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">1인당 운송 효율 저하</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">낮은 탑승률(혼자 이동)·우회 이동 등으로 단위 이동당 배출량 증가.</td>
           </tr>
-<tr data-id="버스" data-factor="0.024125" data-unit="km/주">
-            <th scope="row">버스</th>
-            <td>
-              <input id="inp-버스" type="number" inputmode="decimal" min="0" step="any" aria-label="버스 (km/주)" />
-            </td>
-            <td class="unit">km/주</td>
-            <td class="output"><span class="co2val" id="co2-버스">0.00</span></td>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">차량 및 연료 생산</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">전 과정의 에너지 소비</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">차량 제조·정비·폐기 및 연료 생산/유통 과정의 간접배출.</td>
           </tr>
-<tr data-id="지하철" data-factor="0.005525" data-unit="km/주">
-            <th scope="row">지하철</th>
-            <td>
-              <input id="inp-지하철" type="number" inputmode="decimal" min="0" step="any" aria-label="지하철 (km/주)" />
-            </td>
-            <td class="unit">km/주</td>
-            <td class="output"><span class="co2val" id="co2-지하철">0.00</span></td>
-          </tr>
-<tr class="section"><th colspan="4">식품</th></tr>
-<tr data-id="밥,죽,면" data-factor="0.842" data-unit="회/주">
-  <th scope="row">밥,죽,면</th>
-  <td>
-    <input id="inp-밥,죽,면" type="number" inputmode="decimal" min="0" step="any" aria-label="밥,죽,면 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-밥,죽,면">0.00</span></td>
-</tr>
-<tr data-id="국,탕,찌개" data-factor="2.075" data-unit="회/주">
-  <th scope="row">국,탕,찌개</th>
-  <td>
-    <input id="inp-국,탕,찌개" type="number" inputmode="decimal" min="0" step="any" aria-label="국,탕,찌개 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-국,탕,찌개">0.00</span></td>
-</tr>
-<tr data-id="피자" data-factor="2" data-unit="회/주">
-  <th scope="row">피자</th>
-  <td>
-    <input id="inp-피자" type="number" inputmode="decimal" min="0" step="any" aria-label="피자 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-피자">0.00</span></td>
-</tr>
-<tr data-id="햄버거 세트" data-factor="3.7" data-unit="회/주">
-  <th scope="row">햄버거 세트</th>
-  <td>
-    <input id="inp-햄버거 세트" type="number" inputmode="decimal" min="0" step="any" aria-label="햄버거 세트 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-햄버거 세트">0.00</span></td>
-</tr>
-<tr data-id="치킨" data-factor="2.1" data-unit="회/주">
-  <th scope="row">치킨</th>
-  <td>
-    <input id="inp-치킨" type="number" inputmode="decimal" min="0" step="any" aria-label="치킨 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-치킨">0.00</span></td>
-</tr>
-<tr data-id="빵" data-factor="0.254" data-unit="회/주">
-  <th scope="row">빵</th>
-  <td>
-    <input id="inp-빵" type="number" inputmode="decimal" min="0" step="any" aria-label="빵 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-빵">0.00</span></td>
-</tr>
-<tr data-id="고기류(200g)" data-factor="2.285" data-unit="회/주">
-  <th scope="row">고기류(200g)</th>
-  <td>
-    <input id="inp-고기류(200g)" type="number" inputmode="decimal" min="0" step="any" aria-label="고기류(200g) (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-고기류(200g)">0.00</span></td>
-</tr>
-<tr data-id="음료" data-factor="0.257" data-unit="회/주">
-  <th scope="row">음료</th>
-  <td>
-    <input id="inp-음료" type="number" inputmode="decimal" min="0" step="any" aria-label="음료 (회/주)" />
-  </td>
-  <td class="unit">회/주</td>
-  <td class="output"><span class="co2val" id="co2-음료">0.00</span></td>
-</tr>
-<tr class="section"><th colspan="4">일회용품</th></tr>
-<tr data-id="종이컵" data-factor="0.11" data-unit="개/주">
-  <th scope="row">종이컵</th>
-  <td>
-    <input id="inp-종이컵" type="number" inputmode="decimal" min="0" step="any" aria-label="종이컵 (개/주)" />
-  </td>
-  <td class="unit">개/주</td>
-  <td class="output"><span class="co2val" id="co2-종이컵">0.00</span></td>
-</tr>
-
-<tr data-id="빨대" data-factor="0.0006" data-unit="개/주">
-            <th scope="row">빨대</th>
-            <td>
-              <input id="inp-빨대" type="number" inputmode="decimal" min="0" step="any" aria-label="빨대 (사용량/주)" />
-            </td>
-            <td class="unit">개/주</td>
-            <td class="output"><span class="co2val" id="co2-빨대">0.00</span></td>
-          </tr>
-<tr data-id="알루미늄 캔 (355ml)" data-factor="0.0968" data-unit="개/주">
-            <th scope="row">알루미늄 캔 (355ml)</th>
-            <td>
-              <input id="inp-알루미늄캔(355ml)" type="number" inputmode="decimal" min="0" step="any" aria-label="알루미늄 캔 (355ml) (개/주)" />
-            </td>
-            <td class="unit">개/주</td>
-            <td class="output"><span class="co2val" id="co2-알루미늄캔(355ml)">0.00</span></td>
-          </tr>
-<tr data-id="플라스틱(500ml)" data-factor="0.083" data-unit="개/주">
-            <th scope="row">플라스틱(500ml)</th>
-            <td>
-              <input id="inp-플라스틱(500ml)" type="number" inputmode="decimal" min="0" step="any" aria-label="플라스틱(500ml) (사용량/주)" />
-            </td>
-            <td class="unit">개/주</td>
-            <td class="output"><span class="co2val" id="co2-플라스틱(500ml)">0.00</span></td>
-          </tr>
-
-</tbody>
-        
+        </tbody>
       </table>
 
-      <div class="summary" id="summaryBox">
-        <div class="total-line">총 배출량 : <span id="sumCO2">0.00</span> kg-CO₂</div>
-        <div class="trees">이 CO₂를 상쇄하려면 연간 소나무 <span id="tree-count">0</span> 그루가 필요합니다.</div>
-      </div>
+      <h3>2. 식품(식습관)</h3>
+      <p><b>원인:</b> 생산·가공·운송 전 과정에서 배출. 농업 생산(특히 반추동물 사육의 <b>메탄 CH₄</b>)과 제조/포장, 냉장 유통, 조리 및 폐기 등에서 배출이 발생</p>
+      <ul>
+        <li><b>육류(특히 소·양):</b> 장내발효로 메탄(CH₄) 배출 + 사료/축사 운영 에너지 사용 → 높은 배출 강도</li>
+        <li><b>식물성 중심 식사:</b> 곡물·콩류 중심은 상대적으로 배출 낮음</li>
+        <li><b>음식물 쓰레기:</b> 매립 시 메탄(CH₄) 발생, 수거·처리 과정의 에너지 소모</li>
+        <li><b>가공/포장:</b> 플라스틱·캔·종이 포장 제조 및 냉장/냉동 유통의 에너지 사용</li>
+        <li><b>요약:</b> 생산~폐기까지 <b>전 주기</b>에서 CO₂·CH₄ 등 온실가스 배출</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">육류 중심의 식습관</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">축산업의 메탄(CH₄)</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">반추동물 사육 시 메탄 배출 + 사료·축사 운영 에너지.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">푸드 마일리지</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">장거리 운송</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">수입 농산물/가공식품의 운송·저장 과정 배출.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">음식물 쓰레기</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">폐기/처리 과정</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">매립 시 메탄(CH₄) 발생, 수거·처리의 간접배출.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">가공 및 포장</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">제조 및 에너지 사용</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">식품 가공/포장(캔·플라스틱 등) 제조와 냉장/냉동 유통의 에너지.</td>
+          </tr>
+        </tbody>
+      </table>
 
-      
+      <h3>3. 일회용품 사용</h3>
+      <p><b>원인:</b> 생산·사용·폐기 전 과정. 플라스틱은 주로 화석연료 기반 원료로 제조되며, 생산부터 폐기까지 많은 에너지를 사용</p>
+      <ul>
+        <li><b>플라스틱 물품 생산:</b> 원료 추출·정제·중합 공정의 에너지 소비 → CO₂ 배출</li>
+        <li><b>종이 제품 생산:</b> 벌목·펄프·제지 공정 및 운송 에너지</li>
+        <li><b>폐기물 처리:</b> 매립/소각 과정에서 메탄(CH₄)/CO₂ 배출, 재활용 과정 에너지 사용</li>
+        <li><b>요약:</b> <b>생산→사용→폐기</b>의 전 주기에서 배출 발생</li>
+      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
+            <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">플라스틱 물품 사용</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">화석연료 원료·가공</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">원료 추출·정제·제조 공정 에너지 사용과 공정 배출.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">종이 제품 사용</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">산림 자원·제조 에너지</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">벌목·펄프화·제지·운송 등 전 과정에서 배출 발생.</td>
+          </tr>
+          <tr>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">폐기물 처리(매립/소각)</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border);">메탄(CH₄)/CO₂ 배출</td>
+            <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">매립 시 메탄 발생, 소각 시 CO₂ 발생. 재활용 공정의 에너지 사용.</td>
+          </tr>
+        </tbody>
+      </table>
 
-      
-      </section>
-
-      $1
-        <div class="hero-wrap">
-          <img class="hero-img" src="./assets/img/car-me.jpg" alt="정체된 도로에서 발생하는 배출가스" loading="lazy" decoding="async" />
-        </div>
-        <h2 style="margin:0 0 10px;color:#3f2a7c; font-size:18px;">탄소의 발생 이유와 줄이는 방법</h2>
-        
-        
-        <h3 style="margin:14px 0 6px; font-size:17px;">1. 교통수단</h3>
-        <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 연료 연소와 에너지 소비. 대부분의 교통수단은 <b>화석 연료(휘발유, 경유 등)</b>를 연소해 동력을 얻기 때문에 직접적으로 온실가스(주로 CO₂)를 배출</p>
-        <ul style="margin:0 0 12px 18px; color:#374151;">
-          <li><b>자동차·오토바이·버스:</b> 도로 화석연료(휘발유, 경유) 연소 → CO₂ 배출</li>
-          <li><b>항공기:</b> 이착륙/순항 전 과정에서 고농도 배출, 고고도 비응축성 영향 포함</li>
-          <li><b>선박:</b> 중유 사용, 항만 대기오염 및 온실가스 배출</li>
-          <li><b>전기차:</b> 주행 중 직접배출은 없음. 다만 전력 생산 단계의 간접배출 존재</li>
-          <li><b>요약:</b> 연료를 태우는 과정에서 직접적으로 CO₂가 배출(직접배출), 전기 사용 시엔 전력 생산 과정의 <b>간접배출</b>이 주요 원인</li>
-        </ul>
-        <table style="width:100%; border-collapse:collapse; margin:6px 0 18px;">
-          <thead>
-            <tr>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">자가용 이용(특히 내연기관)</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">화석 연료 연소</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">차량 연소 시 CO₂ 직접 배출. 차량 제조·정비 과정의 간접배출도 고려.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">비효율적 이동</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">1인당 운송 효율 저하</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">낮은 탑승률(혼자 이동)·우회 이동 등으로 단위 이동당 배출량 증가.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">차량 및 연료 생산</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">전 과정의 에너지 소비</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">차량 제조·정비·폐기 및 연료 생산/유통 과정의 간접배출.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        
-        <h3 style="margin:14px 0 6px; font-size:17px;">2. 식품(식습관)</h3>
-        <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 생산·가공·운송 전 과정에서 배출. 농업 생산(특히 반추동물 사육의 <b>메탄 CH₄</b>)과 제조/포장, 냉장 유통, 조리 및 폐기 등에서 배출이 발생</p>
-        <ul style="margin:0 0 12px 18px; color:#374151;">
-          <li><b>육류(특히 소·양):</b> 장내발효로 메탄(CH₄) 배출 + 사료/축사 운영 에너지 사용 → 높은 배출 강도</li>
-          <li><b>식물성 중심 식사:</b> 곡물·콩류 중심은 상대적으로 배출 낮음</li>
-          <li><b>음식물 쓰레기:</b> 매립 시 메탄(CH₄) 발생, 수거·처리 과정의 에너지 소모</li>
-          <li><b>가공/포장:</b> 플라스틱·캔·종이 포장 제조 및 냉장/냉동 유통의 에너지 사용</li>
-          <li><b>요약:</b> 생산~폐기까지 <b>전 주기</b>에서 CO₂·CH₄ 등 온실가스 배출</li>
-        </ul>
-        <table style="width:100%; border-collapse:collapse; margin:6px 0 18px;">
-          <thead>
-            <tr>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">육류 중심의 식습관</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">축산업의 메탄(CH₄)</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">반추동물 사육 시 메탄 배출 + 사료·축사 운영 에너지.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">푸드 마일리지</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">장거리 운송</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">수입 농산물/가공식품의 운송·저장 과정 배출.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">음식물 쓰레기</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">폐기/처리 과정</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">매립 시 메탄(CH₄) 발생, 수거·처리의 간접배출.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">가공 및 포장</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">제조 및 에너지 사용</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">식품 가공/포장(캔·플라스틱 등) 제조와 냉장/냉동 유통의 에너지.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        
-        <h3 style="margin:14px 0 6px; font-size:17px;">3. 일회용품 사용</h3>
-        <p style="margin:0 0 8px; color:#374151;"><b>원인:</b> 생산·사용·폐기 전 과정. 플라스틱은 주로 화석연료 기반 원료로 제조되며, 생산부터 폐기까지 많은 에너지를 사용</p>
-        <ul style="margin:0 0 12px 18px; color:#374151;">
-          <li><b>플라스틱 물품 생산:</b> 원료 추출·정제·중합 공정의 에너지 소비 → CO₂ 배출</li>
-          <li><b>종이 제품 생산:</b> 벌목·펄프·제지 공정 및 운송 에너지</li>
-          <li><b>폐기물 처리:</b> 매립/소각 과정에서 메탄(CH₄)/CO₂ 배출, 재활용 과정 에너지 사용</li>
-          <li><b>요약:</b> <b>생산→사용→폐기</b>의 전 주기에서 배출 발생</li>
-        </ul>
-        <table style="width:100%; border-collapse:collapse; margin:6px 0 18px;">
-          <thead>
-            <tr>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">소비 패턴</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">주요 탄소 배출 원인</th>
-              <th style="text-align:left; padding:8px 10px; border-bottom:1px solid var(--border); color:#4b5563; font-size:13px;">세부 내용</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">플라스틱 물품 사용</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">화석연료 원료·가공</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">원료 추출·정제·제조 공정 에너지 사용과 공정 배출.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">종이 제품 사용</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">산림 자원·제조 에너지</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">벌목·펄프화·제지·운송 등 전 과정에서 배출 발생.</td>
-            </tr>
-            <tr>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">폐기물 처리(매립/소각)</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border);">메탄(CH₄)/CO₂ 배출</td>
-              <td style="padding:10px; border-bottom:1px solid var(--border); color:#374151;">매립 시 메탄 발생, 소각 시 CO₂ 발생. 재활용 공정의 에너지 사용.</td>
-            </tr>
-          </tbody>
-        </table>
-
-        
-        <h3 style="margin:18px 0 6px; font-size:17px;">4. 줄이는 방법(핵심 전략)</h3>
-        <ol style="margin:0 0 4px 18px; color:#374151;">
-          <li><b>건물·산업 에너지 효율화</b> — 건물 단열 강화, 고효율 설비, 스마트 그리드/스마트 팩토리 도입</li>
-          <li><b>녹색도시·스마트 시티 기반</b> — 대중교통 확충, 탄소 중립형(도심) 보행/자전거 인프라, 도시 숲·공원 확충</li>
-          <li><b>탄소 상쇄 활동</b> — 나무심기·산림보호, 캠페인 참여, 친환경 기업/ESG 투자</li>
-          <li><b>친환경 교통·소비 습관</b> — 대중교통/자전거·도보 이용, 육류 소비 줄이기, 다회용기 사용/재사용·재활용, 에너지 절약</li>
-        </ol>
-      </section>
+      <h3>4. 줄이는 방법(핵심 전략)</h3>
+      <ol style="margin:0 0 4px 18px; color:#374151;">
+        <li><b>건물·산업 에너지 효율화</b> — 건물 단열 강화, 고효율 설비, 스마트 그리드/스마트 팩토리 도입</li>
+        <li><b>녹색도시·스마트 시티 기반</b> — 대중교통 확충, 탄소 중립형(도심) 보행/자전거 인프라, 도시 숲·공원 확충</li>
+        <li><b>탄소 상쇄 활동</b> — 나무심기·산림보호, 캠페인 참여, 친환경 기업/ESG 투자</li>
+        <li><b>친환경 교통·소비 습관</b> — 대중교통/자전거·도보 이용, 육류 소비 줄이기, 다회용기 사용/재사용·재활용, 에너지 절약</li>
+      </ol>
+    </section>
 
   </div>
 
   <script>
-
+    // ===== Utils =====
     const fmt = (n) => (Number.isFinite(n) ? n.toLocaleString(undefined,{maximumFractionDigits:2, minimumFractionDigits:2}) : '0.00');
     const num = (x) => parseFloat(String(x).replace(/[^\d.-]/g, ''));
 
-
+    // ===== Row calc =====
     function recalcRow(tr){
       const input = tr.querySelector('input');
       const factor = parseFloat(tr.dataset.factor || '0');
       const value = parseFloat(input?.value);
       const co2 = (isNaN(value) ? 0 : value) * (isNaN(factor) ? 0 : factor);
-
       const outSpan = tr.querySelector('.co2val');
       const outCell = tr.querySelector('.result');
       if (outSpan) outSpan.textContent = fmt(co2);
@@ -451,7 +405,7 @@
       let total = 0;
       document.querySelectorAll('tbody tr[data-id]').forEach(tr => total += recalcRow(tr));
       const totalEl = document.getElementById('co2-total');
-      if(totalEl) totalEl.textContent = fmt(total); // legacy fallback
+      if(totalEl) totalEl.textContent = fmt(total);
       renderSummary(total);
       try{ localStorage.setItem('co2-form-values', JSON.stringify(collectValues())); }catch(e){}
     }
@@ -474,13 +428,13 @@
         document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
           const id = tr.dataset.id; if(data[id] !== undefined){ const inp = tr.querySelector('input'); if(inp) inp.value = data[id]; }
         });
-      }catch(e){  }
+      }catch(e){}
     }
 
-
+    // ===== Summary helpers (trees offset) =====
     function getTreeAbsorption(){
       const v = parseFloat(localStorage.getItem('co2-tree-absorption'));
-      return (Number.isFinite(v) && v > 0) ? v : 6.6; // kg-CO2 per tree per year (default)
+      return (Number.isFinite(v) && v > 0) ? v : 6.6; // kg-CO2 per tree per year
     }
 
     function renderSummary(total){
@@ -489,65 +443,10 @@
       const per = getTreeAbsorption();
       const count = per > 0 ? Math.ceil(total / per) : 0;
       const countEl = document.getElementById('tree-count');
-      const perEl = document.getElementById('tree-per-year');
       if(countEl) countEl.textContent = count.toLocaleString();
-      if(perEl) perEl.textContent = fmt(per);
     }
 
-    function buildFactorEditor(){
-      const tbody = document.getElementById('factorEditor');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
-        const name = tr.querySelector('th')?.textContent?.trim() ?? '(항목)';
-        const unit = tr.dataset.unit || tr.querySelector('.unit')?.textContent?.trim() || '';
-        const factor = parseFloat(tr.dataset.factor || '0');
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${name}</td>
-          <td><input type="number" step="any" value="${factor}" style="width: 140px;" aria-label="${name} 배출계수"/></td>
-          <td class="unit">${unit}</td>
-          <td><button class="btn" data-apply>적용</button></td>`;
-        row.querySelector('[data-apply]').addEventListener('click', () => {
-          const newF = parseFloat(row.querySelector('input').value);
-          if(!Number.isFinite(newF) || newF < 0){
-            alert('올바른 숫자를 입력하세요.');
-            return;
-          }
-          tr.dataset.factor = String(newF);
-          recalcAll();
-          renderHelp();
-        });
-        tbody.appendChild(row);
-      });
-
-      const treeRow = document.createElement('tr');
-      treeRow.innerHTML = `
-        <td>소나무(30년생) 1그루 연간 흡수량</td>
-        <td><input type="number" step="any" value="${getTreeAbsorption()}" style="width: 140px;" aria-label="소나무 1그루 연간 CO₂ 흡수량"/></td>
-        <td class="unit">kg/년</td>
-        <td><button class="btn" data-apply-tree>적용</button></td>`;
-      treeRow.querySelector('[data-apply-tree]').addEventListener('click', () => {
-        const v = parseFloat(treeRow.querySelector('input').value);
-        if(!Number.isFinite(v) || v <= 0){ alert('올바른 숫자를 입력하세요.'); return; }
-        localStorage.setItem('co2-tree-absorption', String(v));
-        recalcAll();
-      });
-      tbody.appendChild(treeRow);
-    }
-
-    function renderHelp(){
-      const hel = document.getElementById('helpText');
-      if (!hel) return;
-      const list = Array.from(document.querySelectorAll('tbody tr[data-id]')).map(tr => {
-        const name = tr.querySelector('th')?.textContent?.trim() ?? '(항목)';
-        const unit = tr.dataset.unit || tr.querySelector('.unit')?.textContent?.trim() || '';
-        const f = parseFloat(tr.dataset.factor || '0');
-        return `${name} <b>${fmt(f)}</b> kg/${unit.replace('/월','')}`;
-      }).join(', ');
-    }
-
-
+    // ===== Tabs =====
     function wireTabs(){
       const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
       const panels = {
@@ -579,58 +478,9 @@
       activate('tabbtn-calc');
     }
 
-
-    function runSelfTests(){
-      const report = document.getElementById('test-report');
-      const fail = (msg) => { if(report){ report.className='fail'; report.textContent = '테스트 실패: ' + msg; } console.error(msg); };
-      const ok = (msg) => { if(report){ report.className='ok'; report.textContent = '테스트 통과: ' + msg; } console.log(msg); };
-
-      try {
-
-        const backup = JSON.stringify(collectValues());
-        const lsBackup = localStorage.getItem('co2-form-values');
-
-
-        const inp1 = document.getElementById('inp-승용차(휘발유)');
-        if(!inp1) return ok('입력표가 없는 환경(미리보기) — 테스트 스킵');
-        inp1.value = '100';
-        recalcAll();
-        const row1Text = document.getElementById('co2-승용차(휘발유)')?.textContent || '0';
-        const row1 = num(row1Text);
-        if(Math.abs(row1 - 3.27) > 0.05) return fail('휘발유 100km/주 기대≈3.27kg, 실제='+row1Text);
-
-
-        const inp2 = document.getElementById('inp-밥면평균');
-        if (inp2) {
-          inp2.value = '3';
-
-
-          recalcAll();
-          const t = num(document.getElementById('sumCO2')?.textContent || '0');
-
-          if(Math.abs(t - 5.39) > 0.08) return fail('총합 기대≈5.39kg, 실제='+t);
-        }
-
-
-        try {
-          const data = JSON.parse(backup);
-          document.querySelectorAll('tbody tr[data-id]').forEach(tr => {
-            const id = tr.dataset.id; const inp = tr.querySelector('input'); if(inp && data[id] !== undefined) inp.value = data[id];
-          });
-          if(lsBackup !== null) localStorage.setItem('co2-form-values', lsBackup);
-        } catch(e) {}
-        recalcAll();
-        ok('기본 계산 로직과 합산 테스트 통과');
-      } catch (e) {
-        fail(e?.message || e);
-      }
-    }
-
-
+    // ===== Boot =====
     window.addEventListener('DOMContentLoaded', () => {
-
       try { localStorage.setItem('co2-tree-absorption', '6.6'); } catch(e) {}
-
       loadValues();
       document.querySelectorAll('tbody tr[data-id] input').forEach(inp => inp.addEventListener('input', recalcAll));
       const resetBtn = document.getElementById('resetBtn');
@@ -640,23 +490,11 @@
           recalcAll();
         });
       }
-      const factorsBtn = document.getElementById('showFactors');
-      if(factorsBtn){
-        factorsBtn.addEventListener('click', () => {
-          const det = document.querySelector('details');
-          if(det){ det.open = true; det.scrollIntoView({behavior:'smooth', block:'start'}); }
-        });
-      }
-      buildFactorEditor();
-      renderHelp();
       recalcAll();
       wireTabs();
-      const pInfo = document.getElementById('tab-info'); if(pInfo) pInfo.hidden = true;
-      });
+      // 확실히 가이드 패널은 숨긴 채 시작
+      document.getElementById('tab-info')?.setAttribute('hidden','');
+    });
   </script>
-
-  
-  
-
 </body>
 </html>
