@@ -105,7 +105,12 @@
 
     #tab-info .hero-wrap { position: relative; margin: 8px 0 12px; max-width: 100%; border-bottom: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
     #tab-info .hero-img  { display: block; width: 100%; height: clamp(120px, 16vw, 180px); object-fit: cover; filter: contrast(1.02); }
-    #tab-info .hero-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); }
+    #tab-info .hero-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); }  /* 첫 제목(h2)과 바로 다음 h3 사이 여백 축소 */
+    #tab-info h2 + h3 { margin-top: 12px !important; }
+  /* 식품 섹션: 소 일러스트와 캡션 스타일 */
+    #tab-info .cow-figure{ text-align:center; margin:16px auto 6px; }
+    #tab-info .cow-figure img{ display:block; margin:0 auto; width:min(520px,70%); height:auto; filter:drop-shadow(0 6px 18px rgba(17,24,39,.12)); }
+    #tab-info .cow-figure figcaption{ margin-top:8px; font-size:14px; font-weight:700; color:#111827; }
   </style>
 </head>
 <body>
@@ -337,7 +342,11 @@
         </tbody>
       </table>
 
-      <h3>3. 일회용품 사용</h3>
+      <figure class="cow-figure">
+          <img src="./assets/img/cow.png" alt="소 1마리 일러스트" loading="lazy" decoding="async" />
+          <figcaption>소 1마리는 연간 약 2.3톤 ~ 3톤 CO(2) 배출</figcaption>
+        </figure>
+        <h3>3. 일회용품 사용</h3>
       <p><b>원인:</b> 생산·사용·폐기 전 과정. 플라스틱은 주로 화석연료 기반 원료로 제조되며, 생산부터 폐기까지 많은 에너지를 사용</p>
       <ul>
         <li><b>플라스틱 물품 생산:</b> 원료 추출·정제·중합 공정의 에너지 소비 → CO₂ 배출</li>
