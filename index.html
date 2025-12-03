@@ -111,6 +111,11 @@
     #tab-info .cow-figure{ text-align:center; margin:16px auto 6px; }
     #tab-info .cow-figure img{ display:block; margin:0 auto; width:min(520px,70%); height:auto; filter:drop-shadow(0 6px 18px rgba(17,24,39,.12)); }
     #tab-info .cow-figure figcaption{ margin-top:8px; font-size:14px; font-weight:700; color:#111827; }
+  /* Guide inline images */
+    #tab-info .illustration{ margin:16px 0 14px; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    #tab-info .illustration img{ display:block; width:100%; height:auto; object-fit:cover; }
+    #tab-info .guide-footer{ margin:18px 0 4px; }
+    #tab-info .guide-footer img{ display:block; width:100%; height:auto; }
   </style>
 </head>
 <body>
@@ -381,14 +386,16 @@
         </tbody>
       </table>
 
-      <h3>4. 줄이는 방법(핵심 전략)</h3>
+      <div class="illustration"><img src="./assets/img/trash.jpg" alt="일회용품 쓰레기 더미" loading="lazy" decoding="async"></div>
+        $1
       <ol style="margin:0 0 4px 18px; color:#374151;">
         <li><b>건물·산업 에너지 효율화</b> — 건물 단열 강화, 고효율 설비, 스마트 그리드/스마트 팩토리 도입</li>
         <li><b>녹색도시·스마트 시티 기반</b> — 대중교통 확충, 탄소 중립형(도심) 보행/자전거 인프라, 도시 숲·공원 확충</li>
         <li><b>탄소 상쇄 활동</b> — 나무심기·산림보호, 캠페인 참여, 친환경 기업/ESG 투자</li>
         <li><b>친환경 교통·소비 습관</b> — 대중교통/자전거·도보 이용, 육류 소비 줄이기, 다회용기 사용/재사용·재활용, 에너지 절약</li>
       </ol>
-    </section>
+        <div class="guide-footer"><img src="./assets/img/green.png" alt="녹색도시 일러스트" loading="lazy" decoding="async"></div>
+      </section>
 
   </div>
 
