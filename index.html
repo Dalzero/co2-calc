@@ -30,7 +30,6 @@
     h1 { font-size: 22px; margin: 0 0 6px; letter-spacing: .2px; }
     .sub { color: var(--muted); font-size: 13px; }
 
-    /* Tabs */
     .tabs { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; margin: 12px 0 16px; border-bottom: 1px solid var(--border); }
     .tab { appearance: none; background: transparent; border: none; padding: 10px 14px; border-radius: 10px 10px 0 0; font-weight: 700; color: #6b7280; cursor: pointer; }
     .tab[aria-selected="true"] { color: #2e1065; background: #f6f3ff; border: 1px solid var(--summary-border); border-bottom-color: transparent; }
@@ -72,11 +71,9 @@
     .summary .trees { margin-top: 6px; font-size: 18px; font-weight: 700; color: #4c2882; }
     .summary .note { margin-top: 6px; color: var(--muted); font-size: 12px; }
 
-    /* Hide in-cell labels and placeholders */
     tbody td > label.muted{ display:none; }
     input::placeholder { color: transparent; }
 
-    /* Lightweight test report box */
     #test-report { display:none; margin: 12px 20px; padding: 12px; border-radius: 10px; }
     #test-report.fail { display:block; background:#fef2f2; border:1px solid #fecaca; color:#7f1d1d; }
     #test-report.ok { display:block; background:#ecfdf5; border:1px solid #a7f3d0; color:#064e3b; }
@@ -90,11 +87,9 @@
       #test-report { margin: 10px 12px; }
     }
 
-    /* --- Tabs/panels hard rules --- */
     [role="tabpanel"][hidden] { display: none !important; }
     #survey-link-top { margin-left: 8px; }
 
-    /* --- Carbon Guide spacing & hero image --- */
     #tab-info.card { margin: 0 0 20px; padding: 18px; }
     #tab-info * { line-height: 1.7; }
     #tab-info h2 { margin: 0 0 10px !important; color:#3f2a7c; font-size:18px; }
@@ -107,11 +102,9 @@
     #tab-info .hero-img  { display: block; width: 100%; height: clamp(120px, 16vw, 180px); object-fit: cover; filter: contrast(1.02); }
     #tab-info .hero-wrap::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); }  /* 첫 제목(h2)과 바로 다음 h3 사이 여백 축소 */
     #tab-info h2 + h3 { margin-top: 12px !important; }
-  /* 식품 섹션: 소 일러스트와 캡션 스타일 */
     #tab-info .cow-figure{ text-align:center; margin:16px auto 6px; }
     #tab-info .cow-figure img{ display:block; margin:0 auto; width:min(520px,70%); height:auto; filter:drop-shadow(0 6px 18px rgba(17,24,39,.12)); }
     #tab-info .cow-figure figcaption{ margin-top:8px; font-size:14px; font-weight:700; color:#111827; }
-  /* Guide inline images */
     #tab-info .illustration{ margin:16px 0 14px; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
     #tab-info .illustration img{ display:block; width:100%; height:auto; object-fit:cover; }
     #tab-info .guide-footer{ margin:18px 0 4px; }
@@ -131,7 +124,6 @@
       <a href="https://forms.gle/zAtKxio67VyARqas5" target="_blank" rel="noopener noreferrer" class="btn" id="survey-link-top">설문</a>
     </nav>
 
-    <!-- 계산기 패널 -->
     <section id="tab-calc" role="tabpanel" aria-labelledby="tabbtn-calc">
       <div class="card" role="region" aria-label="CO₂ 계산 표">
         <div class="toolbar">
@@ -263,7 +255,6 @@
       </div>
     </section>
 
-    <!-- 탄소 가이드 패널 -->
     <section id="tab-info" class="card" role="tabpanel" aria-labelledby="tabbtn-info" hidden>
       <div class="hero-wrap">
         <img class="hero-img" src="./assets/img/car-me.jpg" alt="정체된 도로에서 발생하는 배출가스" loading="lazy" decoding="async" />
@@ -387,8 +378,10 @@
       </table>
 
       <div class="illustration"><img src="./assets/img/trash.jpg" alt="일회용품 쓰레기 더미" loading="lazy" decoding="async"></div>
-        $1
-      <ol style="margin:0 0 4px 18px; color:#374151;">
+      
+
+      <h3 id="reduce-guides" style="margin:18px 0 6px; font-size:17px;">4. 줄이는 방법</h3>
+        <ol style="margin:0 0 4px 18px; color:#374151;">
         <li><b>건물·산업 에너지 효율화</b> — 건물 단열 강화, 고효율 설비, 스마트 그리드/스마트 팩토리 도입</li>
         <li><b>녹색도시·스마트 시티 기반</b> — 대중교통 확충, 탄소 중립형(도심) 보행/자전거 인프라, 도시 숲·공원 확충</li>
         <li><b>탄소 상쇄 활동</b> — 나무심기·산림보호, 캠페인 참여, 친환경 기업/ESG 투자</li>
@@ -400,11 +393,9 @@
   </div>
 
   <script>
-    // ===== Utils =====
     const fmt = (n) => (Number.isFinite(n) ? n.toLocaleString(undefined,{maximumFractionDigits:2, minimumFractionDigits:2}) : '0.00');
     const num = (x) => parseFloat(String(x).replace(/[^\d.-]/g, ''));
 
-    // ===== Row calc =====
     function recalcRow(tr){
       const input = tr.querySelector('input');
       const factor = parseFloat(tr.dataset.factor || '0');
@@ -447,7 +438,6 @@
       }catch(e){}
     }
 
-    // ===== Summary helpers (trees offset) =====
     function getTreeAbsorption(){
       const v = parseFloat(localStorage.getItem('co2-tree-absorption'));
       return (Number.isFinite(v) && v > 0) ? v : 6.6; // kg-CO2 per tree per year
@@ -462,7 +452,6 @@
       if(countEl) countEl.textContent = count.toLocaleString();
     }
 
-    // ===== Tabs =====
     function wireTabs(){
       const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
       const panels = {
@@ -494,7 +483,6 @@
       activate('tabbtn-calc');
     }
 
-    // ===== Boot =====
     window.addEventListener('DOMContentLoaded', () => {
       try { localStorage.setItem('co2-tree-absorption', '6.6'); } catch(e) {}
       loadValues();
@@ -508,7 +496,6 @@
       }
       recalcAll();
       wireTabs();
-      // 확실히 가이드 패널은 숨긴 채 시작
       document.getElementById('tab-info')?.setAttribute('hidden','');
     });
   </script>
