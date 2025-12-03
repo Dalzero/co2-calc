@@ -107,9 +107,9 @@
     #tab-info h2 { margin-bottom: 8px !important; }
     #tab-info h2 + h3 { margin-top: 8px !important; }
   /* Hero image for Carbon Guide */
-    #tab-info .hero-wrap{position:relative;margin:-18px -18px 12px;border-bottom:1px solid var(--border);} 
-    #tab-info .hero-img{display:block;width:100%;height:min(32vw,280px);object-fit:cover;filter:contrast(1.03);} 
-    #tab-info .hero-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90px;background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);} 
+    #tab-info .hero-wrap{position:relative;margin:8px auto 12px;max-width:980px;border-bottom:1px solid var(--border);border-radius:12px;overflow:hidden;}  
+    #tab-info .hero-img{display:block;width:100%;height:clamp(140px,22vw,220px);object-fit:cover;filter:contrast(1.02);}  
+    #tab-info .hero-wrap::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(to bottom, rgba(255,255,255,0), #fff);}  
   </style>
 </head>
 <body>
@@ -651,9 +651,5 @@
       wireTabs();
       });
   </script>
-
-  
-  
-
 </body>
 </html>
